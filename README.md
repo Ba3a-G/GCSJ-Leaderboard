@@ -9,7 +9,7 @@ A bunch of scripts to automate Study Jams.
 
 #### Run the corresponsing script from [/scripts](/scripts/)
 ```bash
-curl https://raw.githubusercontent.com/Ba3a-G/automate-gcsj/main/genai/challenge_lab.sh | sh -s <API_KEY>
+curl https://raw.githubusercontent.com/Ba3a-G/automate-gcsj/main/scripts/genai/challenge_lab.sh | sh -s <API_KEY>
 ```
 > [!IMPORTANT]  
 > Replace <API_KEY> with your own!
