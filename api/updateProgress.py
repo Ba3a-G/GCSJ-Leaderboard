@@ -33,6 +33,7 @@ def fetchBadges(id):
 
     soup = BeautifulSoup(response, 'html.parser')
     allBadges = soup.find_all('div', {"class": "profile-badge"})
+    userName = soup.find('h1', {"class": "ql-headline-1"}).text.strip()
 
     badges = []
     count = 0
@@ -45,13 +46,14 @@ def fetchBadges(id):
         badges.append(i)
         count += 1
 
-    return badges, count
+    return badges, count, userName
 
 def lambda_handler(event, context):
     id = event['Records'][0]['body']
-    badges, count = fetchBadges(id)
+    badges, count, userName = fetchBadges(id)
     response = {
         "userid": id,
+        "userName": userName,
         "totalBadges": str(count),
         "lastUpdated": str(int(time.time())),
         "completedQuests": badges

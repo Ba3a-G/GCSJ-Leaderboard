@@ -45,11 +45,12 @@ def fetchBadges(id):
     response = requests.get(url)
 
     if response.status_code != 200:
-        return False, False
+        return False, False, False
 
     response = response.content
     soup = BeautifulSoup(response, 'html.parser')
     allBadges = soup.find_all('div', {"class": "profile-badge"})
+    userName = soup.find('h1', {"class": "ql-headline-1"}).text.strip()
 
     badges = []
     count = 0
@@ -62,7 +63,7 @@ def fetchBadges(id):
         badges.append(i)
         count += 1
 
-    return badges, count
+    return badges, count, userName
 
 def lambda_handler(event, context):
     id = event['pathParameters']['id']
@@ -71,7 +72,7 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'body': json.dumps(checkDynamoDB(id))
         }
-    badges, count = fetchBadges(id)
+    badges, count, userName = fetchBadges(id)
     if not badges:
         return {
             'statusCode': 404,
@@ -79,6 +80,7 @@ def lambda_handler(event, context):
         }
     response = {
         "userid": id,
+        "userName": userName,
         "totalBadges": str(count),
         "lastUpdated": str(int(time.time())),
         "completedQuests": badges
