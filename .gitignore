@@ -1,1 +1,4 @@
 tests
+api/venv
+api/aws
+api/test.py
