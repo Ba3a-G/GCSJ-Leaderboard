@@ -42,8 +42,12 @@ def fetchBadges(id):
     'Introduction to Generative AI',
     'Level 3 GenAI: Prompt Engineering']
 
-    response = requests.get(url).content
+    response = requests.get(url)
 
+    if response.status_code != 200:
+        return False, False
+
+    response = response.content
     soup = BeautifulSoup(response, 'html.parser')
     allBadges = soup.find_all('div', {"class": "profile-badge"})
 
@@ -68,6 +72,11 @@ def lambda_handler(event, context):
             'body': json.dumps(checkDynamoDB(id))
         }
     badges, count = fetchBadges(id)
+    if not badges:
+        return {
+            'statusCode': 404,
+            'body': json.dumps('User not found. Did you use the correct ID? It should be the UUID from the URL. Like: a58a9c90-1728-44ef-9012-3910ceff0192')
+        }
     response = {
         "userid": id,
         "totalBadges": str(count),
