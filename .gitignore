@@ -3,3 +3,6 @@ api/venv
 api/aws
 api/test.py
 api/data.txt
+# Local Netlify folder
+**/.netlify
+**/.vscode

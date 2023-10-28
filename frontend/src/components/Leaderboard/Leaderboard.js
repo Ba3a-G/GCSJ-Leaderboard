@@ -5,7 +5,7 @@ import axios from "axios";
 
 const loadLeaderboard = async () => {
   try {
-    var rawLeaderboard = await axios.get('https://csjprogress.s3.ap-south-1.amazonaws.com/leaderboard.json');
+    var rawLeaderboard = await axios.get('https://dro7t3x3dwegt.cloudfront.net/leaderboard.json');
   } catch(err) {
     console.error('Couldn\'t load leaderboard.')
     return []

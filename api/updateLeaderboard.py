@@ -10,8 +10,6 @@ def getLeaderboard():
         ProjectionExpression='userid, userName, totalBadges, lastBadgeCompletedOn',
     )
     response = response['Items']
-    # sort by totalBadges and then by completedAllAt
-    print("sorting now")
     response = sorted(response, key=lambda i: (i['totalBadges'], -i['lastBadgeCompletedOn']), reverse=True)
 
     for i in range(len(response)):
