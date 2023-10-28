@@ -26,7 +26,6 @@ def fetchBadges(id):
     'Perform Foundational Infrastructure Tasks in Google Cloud',
     'Build and Secure Networks in Google Cloud',
     'Perform Foundational Data, ML, and AI Tasks in Google Cloud',
-    'Introduction to Generative AI',
     'Level 3 GenAI: Prompt Engineering']
 
     response = requests.get(url).content
@@ -39,32 +38,34 @@ def fetchBadges(id):
     count = 0
     for i in allBadges:
         i = i.find_all('span')
+        if i[0].text.strip() not in allowedbadges:
+            continue
         i = {
             "name": i[0].text.strip(),
             "completedAt": i[1].text.strip(),
         }
         badges.append(i)
         count += 1
-
-    return badges, count, userName
+    lastBadgeCompletedOn = allBadges[0].find_all('span')[1].text.strip()
+    lastBadgeCompletedOn = lastBadgeCompletedOn.split(' ')[2].strip(',')
+    return badges, count, userName, lastBadgeCompletedOn
 
 def lambda_handler(event, context):
     id = event['Records'][0]['body']
-    badges, count, userName = fetchBadges(id)
+    badges, count, userName, lastBadgeCompletedOn = fetchBadges(id)
     response = {
         "userid": id,
         "userName": userName,
-        "totalBadges": str(count),
-        "lastUpdated": str(int(time.time())),
-        "completedQuests": badges
+        "totalBadges": count,
+        "lastUpdated": int(time.time()),
+        "completedQuests": badges,
+        "lastBadgeCompletedOn": lastBadgeCompletedOn
     }
-    if count > 9:
-        response['completedAllAt'] = str(int(time.time()))
-    else:
-        response['completedAllAt'] = '0'
     updateDynamoDB(response)
     return {
         'statusCode': 200,
         'body': json.dumps('DynamoDB Updated')
     }
-lambda_handler({"Records": [{"body": "a58a9c90-1728-44ef-9012-3910ceff0192"}]}, None)
+
+if __name__ == '__main__':
+    lambda_handler({"Records": [{"body": "464c2c97-47ad-4f80-a8e7-b42375e5a665"}]}, None)

@@ -2,3 +2,4 @@ tests
 api/venv
 api/aws
 api/test.py
+api/data.txt
