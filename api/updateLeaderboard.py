@@ -7,15 +7,15 @@ def getLeaderboard():
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('csjProgress')
     response = table.scan(
-        ProjectionExpression='userid, userName, totalBadges, completedAllAt',
+        ProjectionExpression='userid, userName, totalBadges, lastBadgeCompletedOn',
     )
     response = response['Items']
     # sort by totalBadges and then by completedAllAt
     print("sorting now")
-    response = sorted(response, key=lambda i: (i['totalBadges'], -i['completedAllAt']), reverse=True)
+    response = sorted(response, key=lambda i: (i['totalBadges'], -i['lastBadgeCompletedOn']), reverse=True)
 
     for i in range(len(response)):
-        response[i]['completedAllAt'] = int(response[i]['completedAllAt'])
+        response[i]['lastBadgeCompletedOn'] = int(response[i]['lastBadgeCompletedOn'])
         response[i]['totalBadges'] = int(response[i]['totalBadges'])
 
     return response

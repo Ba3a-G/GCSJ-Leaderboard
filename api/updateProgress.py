@@ -46,8 +46,11 @@ def fetchBadges(id):
         }
         badges.append(i)
         count += 1
-    lastBadgeCompletedOn = allBadges[0].find_all('span')[1].text.strip()
-    lastBadgeCompletedOn = lastBadgeCompletedOn.split(' ')[2].strip(',')
+    try:
+        lastBadgeCompletedOn = allBadges[0].find_all('span')[1].text.strip()
+        lastBadgeCompletedOn = int(lastBadgeCompletedOn.split(' ')[2].strip(','))
+    except:
+        lastBadgeCompletedOn = 0
     return badges, count, userName, lastBadgeCompletedOn
 
 def lambda_handler(event, context):
@@ -68,4 +71,4 @@ def lambda_handler(event, context):
     }
 
 if __name__ == '__main__':
-    lambda_handler({"Records": [{"body": "464c2c97-47ad-4f80-a8e7-b42375e5a665"}]}, None)
+    lambda_handler({"Records": [{"body": "d50fa905-2fbd-4870-8acb-3f8dd1f7dc24"}]}, None)
