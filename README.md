@@ -1,7 +1,8 @@
-# Automating Google Cloud Study Jams
-A bunch of scripts to automate Study Jams.
+# GCSJ
+A monorepo for Google Cloud Study Jams.
 
-## How to use?
+## Scripts
+### How to use?
 #### Create an API key
 1. To create an API key, from the Navigation menu go to **APIs & Services** > **Credentials** in the Cloud Console.
 2. Click **Create Credentials** and select **API key**.
