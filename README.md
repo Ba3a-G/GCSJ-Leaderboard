@@ -1,6 +1,15 @@
 # GCSJ
 A monorepo for Google Cloud Study Jams.
 
+## Web
+[Backend](/api/) is made using AWS Lambda (serverless function), DynamoDB, and API Gateway. Frontend is built with [React](/frontend/).
+
+Into CTFs? I have hidden three flags in the [live website](https://gcsj.gdsclpu.dev/).
+
+PS: Please don't judge me. The APIs were initially for my own use, it became an internal tool for GDSC LPU after a while, but eventually I was asked to make it public.
+
+*I will probably rewrite the entire thing before next year's event*.
+
 ## Scripts
 ### How to use?
 #### Create an API key
