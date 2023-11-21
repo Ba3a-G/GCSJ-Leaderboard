@@ -2,7 +2,7 @@
 A monorepo for Google Cloud Study Jams.
 
 ## Web
-[Backend](/api/) is made using AWS Lambda (serverless function), DynamoDB, and API Gateway. Frontend is built with [React](/frontend/).
+[Backend](/api/) is made using AWS Lambda (serverless function), DynamoDB, and API Gateway. [Frontend](/frontend/) is built with React.
 
 Into CTFs? I have hidden three flags in the [live website](https://gcsj.gdsclpu.dev/).
 
